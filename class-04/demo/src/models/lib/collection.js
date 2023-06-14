@@ -25,12 +25,21 @@ class Collection {
         let record = await this.model.destroy({ where: { id: data_id } });
         return record;
     }
-    async readCustomerOrders(id) {
-        let record = await this.model.findAll({
-            where: { customerId: id }
-        })
+    // async readCustomerOrders(id) {
+    //     let record = await this.model.findAll({
+    //         where: { customerId: id }
+    //     })
+    //     return record;
+    // }
+
+    async readCustomerOrders(id, model) {
+        let record = await this.model.findOne({
+            where: { id },
+            include: model,
+        });
         return record;
     }
+
 }
 
 module.exports = Collection;
