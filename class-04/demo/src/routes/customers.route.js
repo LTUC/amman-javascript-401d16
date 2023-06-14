@@ -8,13 +8,19 @@ customersRouter.post("/customer", createCustomer);
 customersRouter.put("/customer/:id", updateCustomer);
 customersRouter.delete("/customer/:id", deleteCustomer);
 
+// customersRouter.get("/customerOrders/:id", customerOrders);
+// async function customerOrders(req, res) {
+//     const CustomerId = parseInt(req.params.id);
+//     let customerOrdersResult = await OrderModel.readCustomerOrders(CustomerId);
+//     res.status(200).json(customerOrdersResult);
+// }
+
 customersRouter.get("/customerOrders/:id", customerOrders);
 async function customerOrders(req, res) {
     const CustomerId = parseInt(req.params.id);
-    let customerOrdersResult = await OrderModel.readCustomerOrders(CustomerId);
+    let customerOrdersResult = await CustomerModel.readCustomerOrders(CustomerId, OrderModel.model);
     res.status(200).json(customerOrdersResult);
 }
-
 async function getAllCustomers(req, res) {
     let customersResult = await CustomerModel.read();
     res.status(200).json(customersResult);
