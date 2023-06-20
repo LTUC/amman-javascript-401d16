@@ -25,6 +25,10 @@ const users = sequelize.define('users', {
 app.get('/', (req, res) => {
     res.status(200).send("hello ");
 })
+app.get('/anything', anythingHandler);
+function anythingHandler(req, res) {
+
+}
 app.post('/signup', async (req, res) => {
     let username = req.body.username;
     let hashedPassword = await bcrypt.hash(req.body.password, 5);
@@ -34,6 +38,8 @@ app.post('/signup', async (req, res) => {
     });
     res.status(201).json(record);
 });
+
+// app.get('/signin', basicAut, loginHandler);
 
 app.get('/signin', async (req, res) => {
     // console.log('headers authorization ', req.headers.authorization);
@@ -52,7 +58,6 @@ app.get('/signin', async (req, res) => {
         } else {
             res.status(500).send("wrong username or password");
         }
-
     } else {
         console.log('no user name or password')
     }
