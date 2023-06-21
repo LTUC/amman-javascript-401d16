@@ -39,9 +39,9 @@ app.post('/signup', async (req, res) => {
     res.status(201).json(record);
 });
 
-// app.get('/signin', basicAut, loginHandler);
+// app.post('/signin', basicAut, loginHandler);
 
-app.get('/signin', async (req, res) => {
+app.post('/signin', async (req, res) => {
     // console.log('headers authorization ', req.headers.authorization);
     // Basic c2hpaGFiOjEyMw==
     if (req.headers.authorization) {
