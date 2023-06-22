@@ -11,24 +11,29 @@ const users = sequelize.define('users', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        get() {
-            const dataValue = this.getDataValue('username');
-            return dataValue.toUpperCase();
-        }
     },
     password: {
         type: DataTypes.STRING,
         allowNull: false,
-        set(value) {
-            const hash = bcrypt.hashSync(value, 5);
-            this.setDataValue('password', hash);
+    },
+    role: {
+        type: DataTypes.ENUM('admin', 'writer', 'editor', 'user'),
+        defaultValue: 'user'
+    },
+    capabilities: {
+        type: DataTypes.VIRTUAL,
+        get() {
+            const acl = {
+                user: ['read'],
+                writer: ['read', 'create'],
+                editor: ['read', 'create', 'update'],
+                admin: ['read', 'create', 'update', 'delete']
+            }
+            return acl[this.role];
         }
     },
     token: {
         type: DataTypes.VIRTUAL,
-        get() {
-            return jwt.sign({ username: this.username, password: this.password }, SECRET);
-        }
     }
 });
 
@@ -38,8 +43,8 @@ users.authBasic = async function (username, password) {
     // console.log('user from DB ', user);
     const validUser = await bcrypt.compare(password, user.password);
     if (validUser) {
-        // let newToken = jwt.sign({ username: user.username, password: user.password }, SECRET);
-        // user.token = newToken;
+        let newToken = jwt.sign({ username: user.username, password: user.password }, SECRET);
+        user.token = newToken;
         return user;
     } else {
         throw new Error("invalid user");
