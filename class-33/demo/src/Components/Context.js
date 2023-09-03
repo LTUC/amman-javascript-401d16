@@ -1,6 +1,9 @@
 import superagent from 'superagent';
 import base64 from 'base-64';
 // import jwt from 'jsonwebtoken';
+
+import jwt_decode from "jwt-decode";
+
 import React, { useEffect, useState } from "react";
 export const LoginContext = React.createContext();
 import cookie from 'react-cookies';
@@ -41,9 +44,13 @@ export default function LoginProvider(props) {
         if (user.token) {
             console.log('user', user.token)
             // const userFromToken = jwt.decode(user.token);
-            // console.log('user >>>>> ', userFromToken);
+            const userFromToken = jwt_decode(user.token);
+
+            console.log('user >>>>> ', userFromToken);
             setLoginStatus(true);
-            setUser(user);
+            // setUser(user);
+            setUser(userFromToken);
+
             cookie.save('username', user.user.username);
             cookie.save('capabilities', user.user.capabilities);
             cookie.save('token', user.token);
