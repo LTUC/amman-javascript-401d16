@@ -44,7 +44,9 @@ export default class Login extends React.Component {
                 </When>
                 <When condition={this.context.loginStatus}>
                     <div><h2>{
-                        this.context.user.user.username
+                        // this.context.user.user.username
+                        this.context.user.username
+
                     }</h2></div>
                     <button onClick={this.context.logoutFunction}>Logout</button>
                 </When>

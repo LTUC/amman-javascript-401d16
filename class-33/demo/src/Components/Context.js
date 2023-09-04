@@ -11,13 +11,13 @@ const API = `https://midproject.onrender.com`
 
 export default function LoginProvider(props) {
     const [loginStatus, setLoginStatus] = useState(false);
-    // const [user, setUser] = useState({});
+    const [user, setUser] = useState({});
 
-    const [user, setUser] = useState({
-        user:
-            { username: cookie.load('username') || '', capabilities: cookie.load('capabilities') || [] }
-        , token: ''
-    });
+    // const [user, setUser] = useState({
+    //     user:
+    //         { username: cookie.load('username') || '', capabilities: cookie.load('capabilities') || [] }
+    //     , token: ''
+    // });
 
 
     const loginFunction = async (username, password) => {
