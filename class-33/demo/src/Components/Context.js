@@ -35,8 +35,8 @@ export default function LoginProvider(props) {
     const logoutFunction = () => {
         setLoginStatus(false);
         setUser({})
-        // cookie.remove('token');
-        // cookie.remove('username');
+        cookie.remove('token');
+        cookie.remove('username');
         cookie.remove('capabilities');
 
     }
@@ -51,7 +51,7 @@ export default function LoginProvider(props) {
             // setUser(user);
             setUser(userFromToken);
 
-            cookie.save('username', user.user.username);
+            cookie.save('username', userFromToken.username);
             cookie.save('capabilities', user.user.capabilities);
             cookie.save('token', user.token);
         } else {
