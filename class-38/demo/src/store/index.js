@@ -6,13 +6,10 @@ import omariThunk from '../middlewares/omariThunk';
 const reducers = combineReducers({
     dataFromApi: reducer,
 })
-
 const store = () => {
     // return createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
     return createStore(reducers, composeWithDevTools(applyMiddleware(omariThunk)));
     // return createStore(reducers, applyMiddleware(omariThunk));
-
-
     // return createStore(reducers, composeWithDevTools(applyMiddleware(thunk,,,,,,)));
 
 }
